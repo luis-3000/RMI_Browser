@@ -50,6 +50,40 @@ public class ServiceBrowser {
 	}
 
 	Object[] getServicesList() {
-		
+		Object obj = null;
+		Object[] services = null;
+
+		try {
+			// Do the RMI lookup, and get the stu
+			obj = Naming.lookup("rmi://127.0.0.1/ServiceServer");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		// cast the stub to the remote interface type, so that we can call getSerivceList() on it
+		server = (ServiceServer) obj;
+
+		try {
+			// getServiceList() gives us the array of Objects, that we display in the JComboBox for the user
+			// to select from
+			services = server.getServicesList();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return services;
+	}
+
+	// Inner class MyListener
+	class MyListListener implements addActionListener {
+		public void actionPerformed(ActionEvent ev) {
+			Object selection = serviceList.getSelectedItem();
+			// If we get here, it means the use made a selection from the JComboBo list. So, take the selection they
+			// made and load the appropriate service. (see the loadService method on the previous page, that asks
+			// the server for the service that corresponds with this selection).
+			loadService(selection);
+		}
+	}
+
+	public static void main(String[] args) {
+		new ServiceBrowser().buildGUI();
 	}
 }
