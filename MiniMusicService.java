@@ -9,7 +9,7 @@ public class MiniMusicService implements Service {
 	MyDrawPanel myPanel;
 
 	/* This is the method that will do the service. All it does is display a button and
-	the drawing service (where the rectangles wille ventually be pianted. */
+	the drawing service (where the rectangles will be ventually be painted. */
 	public JPanel getGuiPanel() {
 		JPanel mainPanel = new JPanel();
 		myPanel = new MyDrawPanel()
@@ -36,7 +36,7 @@ public class MiniMusicService implements Service {
 					if(rNum < 38) {  // Now, only do it if num < 38 (75% of the time)
 						track.add(makeEvent(144, 1, rNum, 100, i));
 						track.add(makeEvent(176, 1, 127, 0, i));
-						track.add(makeEvent(128,1,rNum,100,i + 2));
+						track.add(makeEvent(128, 1, rNum, 100, i + 2));
 					}
 				}
 				sequencer.setSequencer(seq);
@@ -63,10 +63,10 @@ public class MiniMusicService implements Service {
 
 	class MyDrawPanel extends JPanel implements addControllerEventListener {
 
-		// We want to paint ONLY if we got an even
+		// We want to paint ONLY if we got an event
 		boolean msg = false;
 
-		public voic controlChange(ShortMessage event) {
+		public void controlChange(ShortMessage event) {
 			msg = true;
 			repaint();
 		}
@@ -96,5 +96,5 @@ public class MiniMusicService implements Service {
 			}
 		}
 	} // end of inner class MyDrawPanel
-	
+
 }
